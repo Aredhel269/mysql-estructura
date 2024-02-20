@@ -1,0 +1,29 @@
+{
+  "name": "sprint5",
+  "version": "1.0.0",
+  "description": "Sprint 5, ItAcademy, Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/infrastructure/server/server.js",
+    "build": "tsc --build tsconfig.json",
+    "build:watch": "tsc --build tsconfig.json --watch"
+  },
+  "keywords": [],
+  "author": "Glòria Monzó",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aredhel269/mysql-estructura.git"
+  },
+  "homepage": "https://github.com/Aredhel269/mysql-estructura#readme",
+  "bugs": {
+    "url": "https://github.com/Aredhel269/mysql-estructura/issues"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.16",
+    "json-sql": "^0.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

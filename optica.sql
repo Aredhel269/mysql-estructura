@@ -134,10 +134,10 @@ VALUES (
       1,
       'Barcelona',
       08005,
-      'Côte dIvoire',
+      'Espanya',
       '934567890',
       NULL,
-      '764546153'd
+      'B12345678'
    ),
    (
       'Vision World',
@@ -150,17 +150,17 @@ VALUES (
       'Espanya',
       '932345678',
       NULL,
-      '987654321'
+      'B87654321'
    ),
    (
       'Spectacle House',
-      'Ogeju View',
-      824,
+      'Carrer Gran de Gràcia',
+      112,
       NULL,
       NULL,
-      'Gasocadi',
+      'Barcelona',
       08012,
-      'Afghanistan',
+      'Espanya',
       '931234567',
       NULL,
       'B98765432'
@@ -259,7 +259,7 @@ VALUES (
       2,
       'Aran',
       'Avda petarda, 1, Terrassa',
-      '628976538',
+      '123456789',
       'aran@mail.com',
       '2023-04-06',
       1
@@ -268,7 +268,7 @@ VALUES (
       3,
       'Clàudia',
       'Trav peque, 2, St Cugat',
-      '689360852',
+      '123456789',
       'claud@mail.com',
       '2023-11-03',
       1
@@ -284,19 +284,19 @@ VALUES (
    ),
    (
       1,
-      'Herbert Logan',
+      'David',
       'Avinguda Diagonal',
       '688765432',
-      'herb@mail.com',
+      'david@mail.com',
       '2024-01-20',
       NULL
    ),
    (
       2,
-      'Dale Shelton',
+      'Laura',
       'Carrer Provença',
       '634567890',
-      'dale@mail.com',
+      'laura@mail.com',
       '2023-02-10',
       NULL
    );
@@ -341,3 +341,4 @@ FROM vendes v
 JOIN ulleres u ON v.id_ulleres = u.idu
 JOIN proveidors p ON u.id_proveidor = p.idp
 GROUP BY p.name;
+
