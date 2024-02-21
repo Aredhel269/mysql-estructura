@@ -1,41 +1,40 @@
-drop database if exists optica;
-create database optica;
-use optica;
-
+DROP database if exists optica;
+CREATE database optica;
+USE optica;
 -- TAULES --
-create table proveidors (
+CREATE table proveidors (
    idp INT primary key auto_increment,
-   name VARCHAR(30) not NULL,
+   name VARCHAR(30) NOT NULL,
    street VARCHAR(60) NOT NULL,
-   street_number INT not null,
+   street_number INT NOT NULL,
    floor_number VARCHAR(10),
-   door_number int,
-   city VARCHAR(60) not null,
-   CP INT not null,
-   country VARCHAR(10) not null,
+   door_number INT,
+   city VARCHAR(60) NOT NULL,
+   CP INT NOT NULL,
+   country VARCHAR(10) NOT NULL,
    telephone VARCHAR(9) NOT NULL,
    fax VARCHAR(9),
    NIF VARCHAR(9) NOT NULL
 );
-create table marca (
+CREATE table marca (
    idm INT primary key auto_increment,
-   name_marca VARCHAR(30) not null
+   name_marca VARCHAR(30) NOT NULL
 );
-create table ulleres (
+CREATE table ulleres (
    idu INT primary key auto_increment,
-   id_proveidor INT not null,
-   id_marca INT not null,
+   id_proveidor INT NOT NULL,
+   id_marca INT NOT NULL,
    graduacio_ullDret FLOAT NOT NULL,
    graduacio_ullEsquerre FLOAT NOT NULL,
-   montura VARCHAR(20) NOT null,
+   montura VARCHAR(20) NOT NULL,
    color VARCHAR(10) NOT NULL,
-   preu FLOAT NOT null,
+   preu FLOAT NOT NULL,
    FOREIGN KEY (id_proveidor) REFERENCES proveidors (idp),
    FOREIGN KEY (id_marca) references marca(idm)
 );
-create table client (
+CREATE table client (
    idc INT primary key auto_increment,
-   id_ulleres INT not null,
+   id_ulleres INT NOT NULL,
    name_client VARCHAR(60) NOT NULL,
    adress_client VARCHAR(90) NOT NULL,
    telf_client VARCHAR(9) NOT NULL,
@@ -45,23 +44,22 @@ create table client (
    FOREIGN KEY (id_ulleres) REFERENCES ulleres (idu),
    foreign KEY (recomanacio) references client (idc)
 );
-create table empleat (
+CREATE table empleat (
    ide INT primary key auto_increment,
-   nom_empleat VARCHAR(90) NOT null
+   nom_empleat VARCHAR(90) NOT NULL
 );
 CREATE table vendes (
    idv INT PRIMARY KEY auto_increment,
-   id_ulleres INT not null,
-   id_client INT not null,
+   id_ulleres INT NOT NULL,
+   id_client INT NOT NULL,
    id_empleat INT NOT NULL,
    data_venda DATE NOT NULL,
    FOREIGN KEY (id_ulleres) REFERENCES ulleres (idu),
    FOREIGN KEY (id_empleat) REFERENCES empleat (ide),
    FOREIGN KEY (id_client) REFERENCES client (idc)
 );
-
 -- INSERTS --
-insert into proveidors (
+INSERT INTO proveidors (
       name,
       street,
       street_number,
@@ -153,7 +151,7 @@ VALUES (
       'B87654321'
    ),
    (
-      'Spectacle House',
+      'Spectacle HoUSE',
       'Carrer Gran de Gràcia',
       112,
       NULL,
@@ -276,7 +274,7 @@ VALUES (
    (
       3,
       'Carla',
-      'Carrer de Sants',
+      'Carrer de Sants, 5, Barcelona',
       '612345678',
       'carla@mail.com',
       '2023-10-15',
@@ -284,8 +282,8 @@ VALUES (
    ),
    (
       1,
-      'David',
-      'Avinguda Diagonal',
+      'Mildred Alexander',
+      'Avinguda Diagonal, 234, Andorra',
       '688765432',
       'david@mail.com',
       '2024-01-20',
@@ -293,8 +291,8 @@ VALUES (
    ),
    (
       2,
-      'Laura',
-      'Carrer Provença',
+      'Howard Wilkerson',
+      'Carrer Provença 98, Vilavall',
       '634567890',
       'laura@mail.com',
       '2023-02-10',
@@ -309,36 +307,38 @@ VALUES (4, 2, 2, '2022-01-02'),
    (5, 3, 1, '2022-02-04'),
    (2, 5, 1, '2023-08-12'),
    (3, 5, 2, '2023-02-08'),
-   (1, 3, 1, '2022-11-20'), 
+   (1, 3, 1, '2022-11-20'),
    (6, 4, 2, '2023-02-02'),
    (1, 1, 1, '2023-05-04'),
    (5, 3, 1, '2022-02-04'),
    (2, 2, 1, '2023-08-12'),
    (4, 5, 2, '2023-02-08');
-
 -- TOTAL COMPRES CLIENTS --
 SELECT c.idc,
    c.name_client as 'Client',
    COUNT(v.idv) AS 'Total compres'
 FROM client c
-   LEFT JOIN vendes v  ON c.idc = v.id_client
-   WHERE name_client  = 'Jan'
-GROUP BY c.idc, c.name_client;
-
+   LEFT JOIN vendes v ON c.idc = v.id_client
+WHERE name_client = 'Jan'
+GROUP BY c.idc,
+   c.name_client;
 -- TOTAL VENDES EMPLEAT/ANY --
-SELECT m.name_marca AS 'marca', u.montura, u.preu, COUNT(v.idv) AS 'Total vendes'
+SELECT m.name_marca AS 'marca',
+   u.montura,
+   u.preu,
+   COUNT(v.idv) AS 'Total vendes'
 FROM vendes v
-JOIN ulleres u ON v.id_ulleres = u.idu
-JOIN marca m ON u.id_marca = m.idm
+   JOIN ulleres u ON v.id_ulleres = u.idu
+   JOIN marca m ON u.id_marca = m.idm
 WHERE v.id_empleat = 1
-AND YEAR(v.data_venda) = 2023
-GROUP BY m.name_marca, u.montura, u.preu;
-
+   AND YEAR(v.data_venda) = 2023
+GROUP BY m.name_marca,
+   u.montura,
+   u.preu;
 -- PROVEÏDORS ULLERES VENUDES --
 SELECT p.name AS 'proveïdor',
    COUNT(v.idv) AS 'Ulleres venudes'
-FROM vendes v 
-JOIN ulleres u ON v.id_ulleres = u.idu
-JOIN proveidors p ON u.id_proveidor = p.idp
+FROM vendes v
+   JOIN ulleres u ON v.id_ulleres = u.idu
+   JOIN proveidors p ON u.id_proveidor = p.idp
 GROUP BY p.name;
-
