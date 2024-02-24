@@ -9,7 +9,7 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "optica",
+            "name": "sprint5",
             "database": "optica",
             "username": "root",
             "password": "1234"
