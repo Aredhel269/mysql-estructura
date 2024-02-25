@@ -2,10 +2,10 @@
   "name": "sprint5",
   "version": "1.0.0",
   "description": "Sprint 5, ItAcademy, Nodejs",
-  "main": "index.js",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/infrastructure/server/server.js",
+    "devStart": "nodemon script.js",
     "build": "tsc --build tsconfig.json",
     "build:watch": "tsc --build tsconfig.json --watch"
   },
@@ -23,7 +23,11 @@
   "dependencies": {
     "@types/node": "^20.11.16",
     "json-sql": "^0.5.0",
+    "mongoose": "^8.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
